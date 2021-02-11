@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Formulario</title>
+	<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+
+	<script>
+		window.addEventListener("load", function() {
+ 		 formulario.cedula.addEventListener("keypress", soloNumeros, false);
+ 		 formulario.sueldo.addEventListener("keypress", soloNumeros, false);
+		});
+
+		//Solo permite introducir numeros.
+		function soloNumeros(e){
+ 		 var key = window.event ? e.which : e.keyCode;
+  			if (key < 48 || key > 57) {
+   			 e.preventDefault();
+  			}
+		}
+	</script>	
+
+	
+	
+</head>
+<body>
+<div class="container">
+	<h2>
+		<center>Formulario de Registro</center>
+	</h2>
+	<hr>
+	<br>
+	<form action="" method="POST" name="formulario" id="formulario">
+	<div align="center">	
+		
+		<table>
+
+		<tr>
+			<td>Nombre: </td>
+			<td><input type="text" name="nombre" id="nombre"></td>
+		</tr>
+	
+		<tr>
+			<td>Apellido: </td>
+			<td><input type="text" name="apellido" id="apellido"></td>
+		</tr>
+
+		<tr>
+			<td>C&eacutedula </td>
+			<td>
+				<input type ="text" name="cedula" id="cedula" maxlength="8">	
+			</td>
+		</tr>
+				
+		<tr>
+			<td>Empresa: </td>
+			<td>
+				<input type="text" name="empresa" id="empresa">
+			</td>
+		</tr>
+					
+		<tr>
+			<td>Departamento:  </td>
+			<td><input type="text" name="departamento" id="departamento"></td>
+		</tr>
+
+		<tr>
+			<td>Sueldo: </td>
+			<td>
+				<input type="text" name="sueldo" id="sueldo" maxlength="12">
+			</td>
+		</tr>
+
+		<tr>
+			<td colspan="2" align="center">
+				<br><br>
+				<button type="reset" value="Limpiar">Limpiar</button>
+				<input type="button" name="btn2" value="Guardar Datos" id="btn2">
+				
+			</td>
+		</tr>
+	</table>
+	</div>
+	</form>
+</div>
+
+<div id="response_ajax"></div>
+	
+	<script>
+		$(function(){
+			$('#btn2').click(function() {
+				var destino = 'proceso.php';
+
+				$.ajax({
+					url: destino,
+					type: 'POST',
+					data: $('#formulario').serialize(),
+
+					success: function(data){
+						$('#response_ajax').html(data);
+					}
+				})
+				
+			});
+		});
+	</script>
+	
+	<script>
+		$(document).ready(function() {
+			$('#btn2').click(function() {
+				$("input[type='text']").val('');
+				$("#nombre").focus();
+			});
+		});
+	</script>
+
+
+	
+</body>
+</html>
